@@ -104,7 +104,7 @@
         /*justify-items: center;*/
     }
     .singer-panel {
-        width: 1080px;
+        /*width: 1080px;*/
 
         display: flex;
         flex-direction: row;
