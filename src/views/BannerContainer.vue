@@ -13,7 +13,7 @@
 
 <script>
     export default {
-        name: "BannerContain",
+        name: "BannerContainer",
         data() {
             return {
                 list: [

@@ -1,10 +1,13 @@
 <template>
     <div id="app">
         <Banner></Banner>
-        <BannerContain></BannerContain>
-        <div class="routview">
-            <router-view></router-view>
+        <BannerContainer></BannerContainer>
+        <div class="route-view">
+            <el-collapse-transition>
+                <router-view></router-view>
+            </el-collapse-transition>
         </div>
+
 
         <Banner></Banner>
     </div>
@@ -13,12 +16,12 @@
 <script>
     // import HelloWorld from '@/components/HelloWorld.vue'
     import Banner from "@/components/Banner";
-    import BannerContain from "@/views/MainIndex";
+    import BannerContainer from "@/views/BannerContainer";
 
     export default {
         name: 'app',
         components: {
-            BannerContain,
+            BannerContainer,
             Banner
 
             // HelloWorld
@@ -40,12 +43,13 @@
         /*align-content: center;*/
     }
 
-    .routview {
-        width: 80%;
+    .route-view {
+        width: 88%;
         align-self: center;
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: 32px;
     }
 
 </style>

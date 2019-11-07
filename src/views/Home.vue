@@ -5,8 +5,8 @@
         <div id="header" class="home">
             <div class="container">
                 <div class="header-content">
-                    <h1>I'm Singer<span class="typed"></span></h1>
-                    <p>designer, developeur, photographer</p>
+                  <!--  <h1>I'm Singer<span class="typed"></span></h1>
+                    <p>designer, developeur, photographer</p>-->
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
     /*-----------------------------------------------------------------------------------*/
 
     #header {
-        background: url("../assets/home-bg.jpg") repeat scroll center center / cover;
+        background: url("../assets/512_512.jpg") repeat scroll center center / cover;
         height: 100vh;
         width: 100%;
     }

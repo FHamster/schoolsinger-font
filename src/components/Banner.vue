@@ -1,6 +1,7 @@
 <template>
     <!-- start section header -->
-    <div>
+    <div class="top">
+        <div class="round"></div>
         <div id="header" class="home">
             <div class="container">
             </div>
@@ -17,16 +18,11 @@
 
 <style scoped>
     #header {
-        background: url("../assets/banner.jpg") repeat scroll center center / cover;
-        height: 40vh;
-        width: 100%;
-    }
+        background: #681630 url("../assets/1140_400.jpg") no-repeat center;
 
-
-    #header .header-content {
-        height: 100vh;
+        height: 400px;
         text-align: left;
-        width: 100%;
+        /*width: 100%;*/
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -41,16 +37,24 @@
     }
 
 
-    .header-content p {
-        font-size: 13px;
-        letter-spacing: 5px;
-        margin-top: 0;
-        margin-bottom: 30px;
-        text-transform: capitalize;
-        color: #fff;
-        font-weight: 500;
+    /* .header-content p {
+         font-size: 13px;
+         letter-spacing: 5px;
+         margin-top: 0;
+         margin-bottom: 30px;
+         text-transform: capitalize;
+         color: #fff;
+         font-weight: 500;
+     }*/
+
+
+    .round {
+        background-image: repeating-linear-gradient(#cdf0ff, #0ca0e9 25%);
+        /*width: 100%;*/
+        /*height: 20px;*/
     }
 
-
-
+    .top {
+        display: flex;
+    }
 </style>
