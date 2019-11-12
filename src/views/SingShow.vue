@@ -1,12 +1,37 @@
 <template>
     <div class="contain">
-
-
         <div class="singer-panel">
-            <div class="content" :key="singInfo.stuName" v-for="singInfo in list">
+            <div class="content" :key="index" v-for="(singInfo,index) in list">
 
-                    <SingerCard :sing-info="singInfo"/>
-
+                <!--                <SingerCard :sing-info="singInfo"/>-->
+                <el-card class="sing-card" body-style="padding:0" shadow="hover">
+                    <!--   <div slot="header" class="card-head">
+                           {{singInfo.stuName}}
+                       </div>-->
+                    <div>
+                        <el-popover
+                                transition="transition"
+                                placement="top-end"
+                                width="200"
+                                trigger="click">
+                            <p>这是{{singInfo.stuName}}的参赛作品</p>
+                            <p>如果喜欢的话积极投票哦</p>
+                            <div style="display: flex;justify-content: space-around">
+                                <el-button type="text"
+                                           size="mini"
+                                           @click="addIntoPlayer(singInfo.musicUrl,singInfo.stuName)">
+                                    播放
+                                </el-button>
+                                <el-button type="primary" size="mini" @click="visible = false">投票</el-button>
+                            </div>
+                            <el-image style="width: 272px; height: 272px"
+                                      fit="fill"
+                                      :src="singInfo.picUrl"
+                                      slot="reference">
+                            </el-image>
+                        </el-popover>
+                    </div>
+                </el-card>
             </div>
         </div>
 
@@ -16,7 +41,7 @@
                 :current-page.sync="page.number"
                 :page-size="page.size"
                 layout="prev, pager, next"
-                :page-count="page.totalPages-1"
+                :page-count="page.totalPages"
                 @current-change="changePage">
         </el-pagination>
 
@@ -27,7 +52,7 @@
                 :show-close="false"
                 :modal="false">
             <div class="bottom-panel">
-                <AudioPlayer style="width: 80%" :audio-list="audioList"/>
+                <AudioPlayer ref="player" style="width: 80%" :audio-list="audioList"/>
             </div>
         </el-drawer>
         <el-button @click="drawer = true" type="primary" class="bottom-btn" icon="el-icon-arrow-up">
@@ -38,25 +63,23 @@
 
 <script>
     import axios from 'axios';
-    import SingerCard from "@/components/SingerCard";
+    // import SingerCard from "@/components/SingerCard";
     import {AudioPlayer} from '@liripeng/vue-audio-player'
     import '@liripeng/vue-audio-player/lib/vue-audio-player.css'
 
 
     export default {
         name: "SingShow",
-        components: {SingerCard, AudioPlayer},
+        components: { AudioPlayer},
+        // components: {SingerCard, AudioPlayer},
         mounted() {
             this.getSingerInfo();
         },
 
         data() {
             return {
-                audioList: [
-                    'http://txh-cdn.96qbhy.com/20180817175211dtC1vE3z.mp3',
-                    'http://txh-cdn.96qbhy.com/20181106105737sOcozMqw.mp3'
-                ],
-                drawer: false,
+                audioList: [],
+                drawer: true,
                 list: [],
                 page: {
                     number: 0,
@@ -67,6 +90,12 @@
             }
         },
         methods: {
+            addIntoPlayer(musicUrl,stuName) {
+                this.$message.success(stuName + "的作品正在播放");
+                this.audioList.push(musicUrl);
+                this.$refs.player.playNext();
+                this.$refs.player.play();
+            },
             changePage() {
                 if (this.page.number > this.page.totalPages) {
                     this.page.number = this.page.totalPages
@@ -77,22 +106,25 @@
                 }
                 axios.get("/api/authUsers", {
                     params: {
-                        page: this.page.number,
+                        page: this.page.number - 1,
                         size: this.page.size
                     }
                 }).then(res => {
-                    this.page.number = res.data.page.number;
+                    console.log(res.data.page.number);
+                    // this.page.number = res.data.page.number;
                     this.list = res.data._embedded.authUsers;
                 });
             },
             getSingerInfo() {
                 axios.get("/api/authUsers", {
                     params: {
-                        page: this.page.number,
-                        size: this.page.size
+                        size: this.page.size,
                     }
                 }).then(res => {
-                    this.page = res.data.page;
+                    console.log(res.data);
+
+                    this.page.number = res.data.page.number;
+                    this.page.totalPages = res.data.page.totalPages;
                     this.list = res.data._embedded.authUsers;
                 });
             }
@@ -136,4 +168,17 @@
         position: fixed;
         bottom: -12px;
     }
+
+    .sing-card {
+        /*width: 230px;*/
+        /*height: 400px;*/
+
+        /*background-color: #42b983;*/
+        padding: 0;
+
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+
 </style>

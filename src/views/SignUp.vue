@@ -1,24 +1,25 @@
 <template>
     <!--<h1>这个页面报名</h1>-->
     <div v-if="isVis" style="width: 800px" class="MyLabel">
-        一所位于东京都千代田区的传统高校“音乃木阪学院”，因为入读的学生人数骤减，所以正面临着废校的危机。
-        其中有九名少女想到一条妙计——<div style="color: #0ca0e9;" @click="isVis=!isVis">成为偶像</div>
+        <div>唱响青春中国梦，红色歌曲展演活动</div>
+        <div>有梦你就唱，有胆你就来</div>
+        <div style="color: #681630;" @click="isVis=!isVis">马上加入</div>
     </div>
     <div v-else>
         <div class="register-border">
 
             <el-form :model="reg" status-icon :rules="rules" label-width="80px" ref="regForm" class="flex-setting">
                 <div class="flex-setting items">
-                    <el-form-item label="易班帐号" prop="uAccountnumber">
-                        <el-input v-model="reg.uAccountnumber" autocomplete="off" type="text"
-                                  prefix-icon="el-icon-user"
-                                  class="register_input_broder"
-                                  placeholder="请输入易班帐号"
-                                  show-word-limit
-                                  clearable>
-                            <!--                                              maxlength="20"-->
-                        </el-input>
-                    </el-form-item>
+                    <!--   <el-form-item label="昵称" prop="uAccountnumber">
+                           <el-input v-model="reg.uAccountnumber" autocomplete="off" type="text"
+                                     prefix-icon="el-icon-user"
+                                     class="register_input_broder"
+                                     placeholder="请输入易班帐号"
+                                     show-word-limit
+                                     clearable>
+                               &lt;!&ndash;                                              maxlength="20"&ndash;&gt;
+                           </el-input>
+                       </el-form-item>-->
                     <el-form-item label="绑定手机" prop="phone">
                         <el-input v-model="reg.phone" autocomplete="off" type="text"
                                   prefix-icon="el-icon-mobile-phone"
@@ -54,28 +55,42 @@
                     <el-form-item label="参赛照片" prop="picUrl">
                         <el-upload
                                 class="avatar-uploader"
-                                action="https://jsonplaceholder.typicode.com/posts/"
+                                action="http://localhost:8081/AvatarUpload/"
                                 :show-file-list="false"
                                 :on-success="handleAvatarSuccess"
                                 :before-upload="beforeAvatarUpload">
-                            <img v-if="picUrl" :src="picUrl" class="avatar">
-                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            <el-image style="width: 176px; height: 176px"
+                                      v-if="picUrl"
+                                      fit="fill"
+                                      :src="picUrl"></el-image>
+                            <i v-else class="el-icon-plus avatar-uploader-icon">
+                                <div>jpg格式</div>
+                                <div>1:1比例最佳</div>
+                                <div>不超过2MB</div>
+                            </i>
                         </el-upload>
                     </el-form-item>
-                    <el-form-item label="清唱作品" prop="musicUrl">
+                    <el-form-item label="清唱作品" prop="musicUrl" style="width: 280px">
                         <el-upload
-                                class="avatar-uploader"
-                                action="http://localhost:8071/"
-                                :show-file-list="false"
-                                :on-success="handleAvatarSuccess"
-                                :before-upload="beforeAvatarUpload">
-                            <img v-if="musicUrl" :src="musicUrl" class="avatar">
-                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                class="upload-demo"
+                                action="http://localhost:8081/MusicUpload/"
+                                :on-preview="handlePreview"
+                                :on-remove="handleRemove"
+                                :on-success="handleMusicSuccess"
+                                :before-remove="beforeRemove"
+                                :before-upload="beforeMusicUpload"
+                                multiple
+                                :limit="3"
+                                :on-exceed="handleExceed"
+                                :file-list="musicFileList">
+                            <el-button size="small" type="primary">点击上传</el-button>
+                            <div slot="tip" class="el-upload__tip">MP3格式，不超过10MB，限制3个</div>
                         </el-upload>
                     </el-form-item>
                 </div>
             </el-form>
-            <el-button type="warning" :round="true" class="register_btn" @click="registerUser">注册</el-button>
+            <!--            <el-button @click="test">test</el-button>-->
+            <el-button type="warning" :round="true" class="register_btn" @click="registerUser">报名</el-button>
         </div>
     </div>
 </template>
@@ -104,10 +119,12 @@
                     })
             };*/
             return {
+                picUrl: "",
+                musicFileList: [],
                 isVis: true,
                 //注册表单
                 reg: {
-                    uAccountnumber: '',
+                    // uAccountnumber: '',
                     // uPsw: '',
                     // uRePsw: '',
                     phone: '',
@@ -118,12 +135,12 @@
                     picUrl: ''
                 },
                 rules: {
-                    uAccountnumber: [
-                        {required: true, message: '请输入易班账号', trigger: 'blur'},
-                        // {min: 6, max: 20, message: '帐号长度应在6到20位', trigger: 'blur'},
-                        // {pattern: '^[a-zA-Z]\\w{5,19}$', message: '以字母开头 只包含字母 数字和下划线'},
-                        // {required: true, validator: validateAcc, trigger: 'blur'}
-                    ],
+                    /*   uAccountnumber: [
+                           {required: true, message: '请输入易班账号', trigger: 'blur'},
+                           // {min: 6, max: 20, message: '帐号长度应在6到20位', trigger: 'blur'},
+                           // {pattern: '^[a-zA-Z]\\w{5,19}$', message: '以字母开头 只包含字母 数字和下划线'},
+                           // {required: true, validator: validateAcc, trigger: 'blur'}
+                       ],*/
                     /* uPsw: [
                          {required: true, message: '请输入登录密码', trigger: 'blur'},
                          {min: 6, max: 20, message: '密码长度应在6到20位', trigger: 'blur'},
@@ -145,40 +162,93 @@
                             pattern: '^[a-zA-Z_0-9]{1,}[0-9]{0,}@(([a-zA-z0-9]-*){1,}\\.){1,3}[a-zA-z\\-]{1,}$',
                             message: '不合法的邮箱'
                         }
+                    ],
+                    picUrl: [
+                        {required: true, message: '上传宣传照片才能让大家更好的记住你', trigger: 'blur'}
+                    ],
+                    musicUrl: [
+                        {required: true, message: '需要上传作品才能参赛哦', trigger: 'blur'}
                     ]
                 }
             };
         },
         methods: {
-            submitForm(formName) {
-                return this.$refs[formName].validate()
+            submitForm() {
+
+                return false;
             },
             registerUser() {
-                if (this.submitForm("regForm")) {
-                    axios.post('api/authUsers', {
-                        picUrl: "",
-                        yibanAcc: this.reg.uAccountnumber,
-                        stuNum: this.reg.stuNo,
-                        musicUrl: "",
-                        tel: this.reg.phone,
-                        stuName: this.reg.name,
-                    }).then(res => {
-                        this.$message.success('注册成功啦');
-                    }).catch(err => {
-                        this.$message.error('服务器异常');
+                this.$refs.regForm
+                    .validate()
+                    .then((res) => {
+                        this.musicFileList.forEach(value => {
+                            console.log(value.response);
+
+                            axios.post('api/authUsers', {
+                                picUrl: this.picUrl,
+                                // yibanAcc: this.reg.uAccountnumber,
+                                stuNum: this.reg.stuNo,
+                                musicUrl: value.response,
+                                tel: this.reg.phone,
+                                stuName: this.reg.name,
+                            }).then(res => {
+
+                            }).catch(err => {
+                                this.$message.error('服务器异常');
+                            });
+                        });
+                        this.$message.success('报名成功啦');
+                        this.$refs.regForm.resetFields();
+                    })
+                    .catch(err => {
+                        this.$message.error('报名失败，检查一下报名信息吧');
                     });
-                } else {
-                    this.resetForm("regForm");
-                    this.$message.error('客户端异常');
-                }
+
             },
+            //音乐上传部分=====================================
+            handleMusicSuccess(res, file, fileList) {
+                this.musicFileList = fileList;
+                // console.log(res);
+                // console.log(file);
+                // console.log(fileList);
+            },
+            handleRemove(file, fileList) {
+                this.musicFileList = fileList;
+            },
+            handlePreview(file) {
+                console.log(file);
+            },
+            handleExceed(files, fileList) {
+                this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+            },
+            beforeRemove(file, fileList) {
+                return this.$message.warning(`${file.name}已经删除`);
+            },
+            beforeMusicUpload(file) {
+                console.log(file);
+                const isMP3 = file.type === 'audio/mpeg';
+                const isLt2M = file.size / 1024 / 1024 < 100;
+                if (!isMP3) {
+                    this.$message.error('上传音乐只能是 MP3 格式!');
+                }
+
+                if (!isLt2M) {
+                    this.$message.error('上传音乐大小不能超过 10MB!');
+                }
+                return isMP3 && isLt2M;
+            },
+            //音乐上传部分=====================================
+            //头像上传部分=====================================
             handleAvatarSuccess(res, file) {
+                // console.log(res);
+                // console.log(file);
                 // this.imageUrl = URL.createObjectURL(file.raw);
+                this.picUrl = res;
             },
             beforeAvatarUpload(file) {
-                const isJPG = file.type === 'image/png';
+                console.log(file);
+                const isJPG = file.type === 'image/jpeg';
                 const isLt2M = file.size / 1024 / 1024 < 20;
-
                 if (!isJPG) {
                     this.$message.error('上传头像图片只能是 JPG 格式!');
                 }
@@ -187,6 +257,7 @@
                 }
                 return isJPG && isLt2M;
             }
+            //头像上传部分=====================================
         }
     }
 </script>
@@ -211,8 +282,8 @@
     }
 
     .avatar-uploader {
-        width: 178px;
-        height: 178px;
+        width: 176px;
+        height: 176px;
         border: 1px dashed #d9d9d9;
         border-radius: 6px;
         display: flex;

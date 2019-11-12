@@ -1,8 +1,8 @@
 <template>
     <el-card class="sing-card" body-style="padding:0" shadow="hover">
-        <div slot="header" class="card-head">
+     <!--   <div slot="header" class="card-head">
             {{singInfo.stuName}}
-        </div>
+        </div>-->
         <div>
             <el-popover
                     transition="transition"
