@@ -11,40 +11,40 @@
                 <el-timeline-item timestamp="2019/11/1" placement="top">
                     <el-card>
                         <h4>报名</h4>
-                        <p>选手于报名通道开放日期由进入报名入口，填写个人信息，上传作品完成报名，</p>
+                        <span>选手于报名通道开放日期由进入报名入口，填写个人信息，上传作品完成报名，</span>
                     </el-card>
                 </el-timeline-item>
                 <el-timeline-item timestamp="2019/11/1" placement="top">
                     <el-card>
                         <h4>海选</h4>
-                        <p>作品经由后台整理统一上传至展示区展示</p>
-                        <p>投票通道开启，欢迎广大师生参与投票</p>
-                        <p>最终得分由网络投票40%，评委60%，计算得出最终票数</p>
+                        <span>作品经由后台整理统一上传至展示区展示</span>
+                        <span>投票通道开启，欢迎广大师生参与投票</span>
+                        <span>最终得分由网络投票40%，评委60%，计算得出最终票数</span>
                         <!--                        <p>票数前四十名获得进入初赛资格</p>-->
                     </el-card>
                 </el-timeline-item>
-                <el-timeline-item timestamp="2019的/11/15" placement="top">
+<!--                <el-timeline-item timestamp="2019的/11/15" placement="top">
                     <el-card>
                         <h4>初赛</h4>
                         <p>入选选手随机分组，上传到好声音网页上由学生票选加上评委打分</p>
                         <p>参照海选规则，最终结果由网络40%，评委60%组成</p>
                     </el-card>
-                </el-timeline-item>
+                </el-timeline-item>-->
                 <el-timeline-item timestamp="2019/12/1" placement="top">
                     <el-card>
                         <h4>复赛</h4>
-                        <p>初赛晋级的队伍参与抽签，抽到相同歌曲的队伍进行PK</p>
-                        <p>参赛选手可自行对歌曲进行改编，根据最终舞台呈现效果由评委老师进行打分</p>
+                        <span>初赛晋级的队伍参与抽签，抽到相同歌曲的队伍进行PK</span>
+                        <span>根据最终舞台呈现效果由评委老师进行打分</span>
                     </el-card>
                 </el-timeline-item>
                 <el-timeline-item timestamp="2019/12/9" placement="top">
                     <el-card>
-                        <h4>决赛</h4>
-                        <p>各路强者争夺校园好声音的荣誉</p>
+                        <h4>争夺战</h4>
+                        <span>各路强者争夺校园好声音的荣誉</span>
                     </el-card>
                 </el-timeline-item>
             </el-timeline>
-            <img src="@/assets/cup.jpg" alt="">
+            <img src="@/assets/cup.jpg" height="800px" alt="">
             <!--   <div class="display-content">
 
                </div>-->
@@ -165,7 +165,7 @@
 
     }
 
-    .display-content > p {
+    .display-content > span {
         margin: 0;
         font-size: 24px;
     }
