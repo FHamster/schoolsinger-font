@@ -1,5 +1,6 @@
 <template>
     <div id="app">
+
         <Banner></Banner>
         <BannerContainer></BannerContainer>
         <div class="route-view">
@@ -9,7 +10,7 @@
         </div>
 
 
-        <Banner></Banner>
+        <Foot/>
     </div>
 </template>
 
@@ -17,10 +18,13 @@
     // import HelloWorld from '@/components/HelloWorld.vue'
     import Banner from "@/components/Banner";
     import BannerContainer from "@/views/BannerContainer";
+    import Foot from "./views/Foot";
+
 
     export default {
         name: 'app',
         components: {
+            Foot,
             BannerContainer,
             Banner
 
@@ -44,7 +48,7 @@
     }
 
     .route-view {
-        width: 88%;
+        /*width: 88%;*/
         align-self: center;
         display: flex;
         flex-direction: column;

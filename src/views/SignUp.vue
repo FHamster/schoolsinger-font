@@ -70,7 +70,7 @@
                             </i>
                         </el-upload>
                     </el-form-item>
-                    <el-form-item label="清唱作品" prop="musicUrl" style="width: 280px">
+                    <el-form-item label="歌唱作品" prop="musicUrl" style="width: 280px">
                         <el-upload
                                 class="upload-demo"
                                 action="http://localhost:8081/MusicUpload/"
@@ -101,7 +101,20 @@
     export default {
         name: "SignUp",
         data() {
-
+            let checkAvatar = (rule, value, callback) => {
+                if (!this.picUrl) {
+                    callback(new Error('必须要有一张参赛照片哦'));
+                } else {
+                    callback();
+                }
+            };
+            let checkMusic = (rule, value, callback) => {
+                if (this.musicFileList.length === 0) {
+                    callback(new Error('需要上传作品才能参赛哦'));
+                } else {
+                    callback();
+                }
+            };
             //校验用户名重复
             /*const validateAcc = (rule, value, callback) => {
                 axios.get('api/User/UserAccisUnique', {
@@ -135,19 +148,6 @@
                     picUrl: ''
                 },
                 rules: {
-                    /*   uAccountnumber: [
-                           {required: true, message: '请输入易班账号', trigger: 'blur'},
-                           // {min: 6, max: 20, message: '帐号长度应在6到20位', trigger: 'blur'},
-                           // {pattern: '^[a-zA-Z]\\w{5,19}$', message: '以字母开头 只包含字母 数字和下划线'},
-                           // {required: true, validator: validateAcc, trigger: 'blur'}
-                       ],*/
-                    /* uPsw: [
-                         {required: true, message: '请输入登录密码', trigger: 'blur'},
-                         {min: 6, max: 20, message: '密码长度应在6到20位', trigger: 'blur'},
-                         {pattern: '^[a-zA-Z]\\w{5,19}$', message: '以字母开头 只包含字母 数字和下划线'}],
-                     uRePsw: [
-                         {required: true, validator: validateRePsw, trigger: 'blur'}
-                     ],*/
                     phone: [
                         {required: true, message: '请输入手机号码', trigger: 'blur'},
                         {
@@ -164,23 +164,19 @@
                         }
                     ],
                     picUrl: [
-                        {required: true, message: '上传宣传照片才能让大家更好的记住你', trigger: 'blur'}
+                        {validator: checkAvatar, trigger: 'blur'}
                     ],
                     musicUrl: [
-                        {required: true, message: '需要上传作品才能参赛哦', trigger: 'blur'}
+                        {validator: checkMusic, trigger: 'blur'}
                     ]
                 }
             };
         },
         methods: {
-            submitForm() {
-
-                return false;
-            },
             registerUser() {
                 this.$refs.regForm
                     .validate()
-                    .then((res) => {
+                    .then(() => {
                         this.musicFileList.forEach(value => {
                             console.log(value.response);
 
@@ -191,16 +187,16 @@
                                 musicUrl: value.response,
                                 tel: this.reg.phone,
                                 stuName: this.reg.name,
-                            }).then(res => {
+                            }).then(() => {
 
-                            }).catch(err => {
+                            }).catch(() => {
                                 this.$message.error('服务器异常');
                             });
                         });
                         this.$message.success('报名成功啦');
                         this.$refs.regForm.resetFields();
                     })
-                    .catch(err => {
+                    .catch(() => {
                         this.$message.error('报名失败，检查一下报名信息吧');
                     });
 
@@ -221,7 +217,7 @@
             handleExceed(files, fileList) {
                 this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
             },
-            beforeRemove(file, fileList) {
+            beforeRemove(file) {
                 return this.$message.warning(`${file.name}已经删除`);
             },
             beforeMusicUpload(file) {
@@ -239,7 +235,7 @@
             },
             //音乐上传部分=====================================
             //头像上传部分=====================================
-            handleAvatarSuccess(res, file) {
+            handleAvatarSuccess(res) {
                 // console.log(res);
                 // console.log(file);
                 // this.imageUrl = URL.createObjectURL(file.raw);

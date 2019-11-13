@@ -1,8 +1,8 @@
 <template>
-    <div style="width: 1080px">
+    <div style="width: 800px">
         <el-collapse v-model="activeNames" accordion @change="handleChange">
             <div :key="it.id" v-for="it in NotificationList">
-                <el-collapse-item :title="it.title+'  '+it.time" :name="it.id">
+                <el-collapse-item :title="it.time+'  '+it.title" :name="it.id">
                     <div>{{it.content}}</div>
                 </el-collapse-item>
             </div>

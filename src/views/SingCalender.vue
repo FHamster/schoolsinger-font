@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="width: 960px">
         <el-calendar>
             <template
                     slot="dateCell"

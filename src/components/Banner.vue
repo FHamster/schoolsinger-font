@@ -1,16 +1,24 @@
 <template>
-    <!-- start section header -->
-    <div class="top">
-        <div class="round"></div>
-        <div id="header" class="home">
-            <div class="container">
+    <div>
+        <div class="logo">
+            <img src="@/assets/yiban.jpg" alt="" height="40px" style="margin-left: 60px">
+            <div style="margin-left: 30px">集美大学易班网络文化工作站</div>
+        </div>
+        <div>
+            <!--        <div class="round"></div>-->
+            <div id="header" class="home">
+                <div class="container">
+                </div>
             </div>
         </div>
     </div>
+
     <!-- End section header -->
 </template>
 
 <script>
+    import '@/assets/yiban.jpg'
+
     export default {
         name: "Banner"
     }
@@ -21,7 +29,7 @@
         background: #681630 url("../assets/1140_400.jpg") no-repeat center;
 
         height: 400px;
-        text-align: left;
+        /*text-align: left;*/
         /*width: 100%;*/
         display: flex;
         justify-content: center;
@@ -56,5 +64,12 @@
 
     .top {
         display: flex;
+    }
+
+    .logo {
+        background-color: white;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
     }
 </style>

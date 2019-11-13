@@ -22,7 +22,7 @@
                                            @click="addIntoPlayer(singInfo.musicUrl,singInfo.stuName)">
                                     播放
                                 </el-button>
-                                <el-button type="primary" size="mini" @click="visible = false">投票</el-button>
+                                <el-button type="primary" size="mini" @click="vote(singInfo.id)">投票</el-button>
                             </div>
                             <el-image style="width: 272px; height: 272px"
                                       fit="fill"
@@ -67,10 +67,9 @@
     import {AudioPlayer} from '@liripeng/vue-audio-player'
     import '@liripeng/vue-audio-player/lib/vue-audio-player.css'
 
-
     export default {
         name: "SingShow",
-        components: { AudioPlayer},
+        components: {AudioPlayer},
         // components: {SingerCard, AudioPlayer},
         mounted() {
             this.getSingerInfo();
@@ -90,7 +89,52 @@
             }
         },
         methods: {
-            addIntoPlayer(musicUrl,stuName) {
+            cheackVote() {
+                let voteAbleTime = this.$store.state.voteAbleTime;
+                let voteCount = this.$store.state.voteCount;
+                let EasydDate = require('easydate.js');
+                EasydDate = EasydDate();
+
+                let voteLimit = 10;
+
+                if (voteAbleTime == '') {
+                    //还未进行投票
+                    this.$store.state.voteAbleTime = EasydDate.calc('hour', 4).date;
+                    return true;
+                } else {
+                    // 已经进行投票，核对限定时间段的票数
+                    if (EasydDate.isBefore(this.$store.state.voteAbleTime)) {
+                        console.log(voteCount);
+                        return voteCount < voteLimit;
+                    }
+                }
+            },
+            vote(vote2Id) {
+
+                let EasydDate = require('easydate.js');
+                EasydDate = EasydDate();
+
+                this.$store.state.voteAbleTime = EasydDate.calc('hour', 4).date;
+                console.log(this.$store.state.voteAbleTime);
+                if (this.cheackVote()) {
+                    axios.post('/api/voteRecords', {
+                        authId: vote2Id
+                    }).then((res) => {
+
+                        this.$store.state.voteCount = this.$store.state.voteCount + 1;
+                        let voteCount = this.$store.state.voteCount;
+                        // console.log(res);
+                        this.$message.success('成功投票,当前已投' + voteCount + "票");
+                    }).catch(err => {
+                        // console.log(err);
+                        this.$message.error(err);
+                    });
+                } else {
+                    this.$message.error("规定时间段内投票数量到达上限，当前投票数量" + this.$store.state.voteCount);
+                }
+
+            },
+            addIntoPlayer(musicUrl, stuName) {
                 this.$message.success(stuName + "的作品正在播放");
                 this.audioList.push(musicUrl);
                 this.$refs.player.playNext();
