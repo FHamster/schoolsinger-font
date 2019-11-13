@@ -11,15 +11,15 @@
                 <el-timeline-item timestamp="2019/11/1" placement="top">
                     <el-card>
                         <h4>报名</h4>
-                        <span>选手于报名通道开放日期由进入报名入口，填写个人信息，上传作品完成报名，</span>
+                        <span>选手于报名通道开放日期由进入报名入口，填写个人信息，上传作品完成报名。</span>
                     </el-card>
                 </el-timeline-item>
                 <el-timeline-item timestamp="2019/11/1" placement="top">
                     <el-card>
                         <h4>海选</h4>
-                        <span>作品经由后台整理统一上传至展示区展示</span>
-                        <span>投票通道开启，欢迎广大师生参与投票</span>
-                        <span>最终得分由网络投票40%，评委60%，计算得出最终票数</span>
+                        <span>作品经由后台整理统一上传至展示区展示。</span>
+<!--                        <span>投票通道开启，欢迎广大师生参与投票。</span>-->
+                        <span>最终得分由网络投票40%，评委60%，计算得出最终得分。</span>
                         <!--                        <p>票数前四十名获得进入初赛资格</p>-->
                     </el-card>
                 </el-timeline-item>
@@ -33,8 +33,8 @@
                 <el-timeline-item timestamp="2019/12/1" placement="top">
                     <el-card>
                         <h4>复赛</h4>
-                        <span>初赛晋级的队伍参与抽签，抽到相同歌曲的队伍进行PK</span>
-                        <span>根据最终舞台呈现效果由评委老师进行打分</span>
+                        <span>选手现场表演，</span>
+                        <span>根据最终舞台呈现效果由评委老师进行打分。</span>
                     </el-card>
                 </el-timeline-item>
                 <el-timeline-item timestamp="2019/12/9" placement="top">
@@ -44,7 +44,7 @@
                     </el-card>
                 </el-timeline-item>
             </el-timeline>
-            <img src="@/assets/cup.jpg" height="800px" alt="">
+            <img src="@/assets/cup.jpg" height="720px" alt="">
             <!--   <div class="display-content">
 
                </div>-->
@@ -156,6 +156,8 @@
         width: 100vw;
         padding: 50px 0;
 
+        min-width: 1080px;
+
     }
 
     .display-content {
@@ -165,7 +167,7 @@
 
     }
 
-    .display-content > span {
+    .display-content > p {
         margin: 0;
         font-size: 24px;
     }

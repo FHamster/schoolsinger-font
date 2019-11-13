@@ -45,6 +45,7 @@
         display: flex;
         flex-direction: column;
         /*align-content: center;*/
+
     }
 
     .route-view {
@@ -54,6 +55,7 @@
         flex-direction: column;
         align-items: center;
         margin: 32px;
+        /*min-width: 800px;*/
     }
 
 </style>
