@@ -119,7 +119,7 @@
                 if (this.cheackVote()) {
                     axios.post('/api/voteRecords', {
                         authId: vote2Id
-                    }).then(() => {  min-width: 1080px;
+                    }).then(() => {
                         this.$store.state.voteCount = this.$store.state.voteCount + 1;
                         let voteCount = this.$store.state.voteCount;
                         // console.log(res);
