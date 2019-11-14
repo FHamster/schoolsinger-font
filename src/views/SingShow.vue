@@ -104,18 +104,15 @@
                 } else {
                     // 已经进行投票，核对限定时间段的票数
                     if (EasydDate.isBefore(this.$store.state.voteAbleTime)) {
-                        console.log(voteCount);
                         return voteCount < voteLimit;
                     }
                 }
             },
             vote(vote2Id) {
-
                 let EasydDate = require('easydate.js');
                 EasydDate = EasydDate();
 
                 this.$store.state.voteAbleTime = EasydDate.calc('hour', 4).date;
-                console.log(this.$store.state.voteAbleTime);
                 if (this.cheackVote()) {
                     axios.post('/api/voteRecords', {
                         authId: vote2Id
@@ -153,7 +150,6 @@
                         size: this.page.size
                     }
                 }).then(res => {
-                    console.log(res.data.page.number);
                     // this.page.number = res.data.page.number;
                     this.list = res.data._embedded.authUsers;
                 });
@@ -164,8 +160,6 @@
                         size: this.page.size,
                     }
                 }).then(res => {
-                    console.log(res.data);
-
                     this.page.number = res.data.page.number;
                     this.page.totalPages = res.data.page.totalPages;
                     this.list = res.data._embedded.authUsers;

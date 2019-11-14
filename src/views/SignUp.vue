@@ -178,8 +178,6 @@
                     .validate()
                     .then(() => {
                         this.musicFileList.forEach(value => {
-                            console.log(value.response);
-
                             axios.post('api/authUsers', {
                                 picUrl: this.picUrl,
                                 // yibanAcc: this.reg.uAccountnumber,
@@ -211,8 +209,9 @@
             handleRemove(file, fileList) {
                 this.musicFileList = fileList;
             },
+            // eslint-disable-next-line no-unused-vars
             handlePreview(file) {
-                console.log(file);
+
             },
             handleExceed(files, fileList) {
                 this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
@@ -221,7 +220,6 @@
                 return this.$message.warning(`${file.name}已经删除`);
             },
             beforeMusicUpload(file) {
-                console.log(file);
                 const isMP3 = file.type === 'audio/mpeg';
                 const isLt2M = file.size / 1024 / 1024 < 100;
                 if (!isMP3) {
@@ -242,7 +240,6 @@
                 this.picUrl = res;
             },
             beforeAvatarUpload(file) {
-                console.log(file);
                 const isJPG = file.type === 'image/jpeg';
                 const isLt2M = file.size / 1024 / 1024 < 20;
                 if (!isJPG) {
