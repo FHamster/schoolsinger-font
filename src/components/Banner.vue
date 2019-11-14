@@ -25,11 +25,9 @@
 <style scoped>
     #header {
         background: #681630 url("../assets/1140_400.jpg") no-repeat center;
+        min-width: 1440px;
 
         min-height: 400px;
-        /*text-align: left;*/
-        /*width: 100%;*/
-        min-width: 1140px;
         display: flex;
         justify-content: center;
         flex-direction: column;

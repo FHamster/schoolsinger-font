@@ -41,7 +41,7 @@
         text-align: center;
         color: #2c3e50;
         margin-top: 0;
-
+        min-width: 1440px;
         display: flex;
         flex-direction: column;
         /*align-content: center;*/
@@ -49,12 +49,13 @@
     }
 
     .route-view {
-        /*width: 88%;*/
+
         align-self: center;
         display: flex;
         flex-direction: column;
         align-items: center;
         margin: 32px;
+
         /*min-width: 800px;*/
     }
 

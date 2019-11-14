@@ -55,7 +55,7 @@
                     <el-form-item label="参赛照片" prop="picUrl">
                         <el-upload
                                 class="avatar-uploader"
-                                action="http://localhost:8081/AvatarUpload/"
+                                :action="getAvatarUpload()"
                                 :show-file-list="false"
                                 :on-success="handleAvatarSuccess"
                                 :before-upload="beforeAvatarUpload">
@@ -73,7 +73,7 @@
                     <el-form-item label="歌唱作品" prop="musicUrl" style="width: 280px">
                         <el-upload
                                 class="upload-demo"
-                                action="http://localhost:8081/MusicUpload/"
+                                :action="getMusicUpload()"
                                 :on-preview="handlePreview"
                                 :on-remove="handleRemove"
                                 :on-success="handleMusicSuccess"
@@ -173,6 +173,13 @@
             };
         },
         methods: {
+            getAvatarUpload() {
+                return "http://119.3.226.50:8080/AvatarUpload/"
+                // return "http://localhost:8081/AvatarUpload/"
+            },getMusicUpload() {
+                return "http://119.3.226.50:8080/MusicUpload/"
+                // return "http://localhost:8081/MusicUpload/"
+            },
             registerUser() {
                 this.$refs.regForm
                     .validate()

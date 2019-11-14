@@ -1,5 +1,5 @@
 <template>
-    <div class="banner-wrap">
+    <div class="banner-wrap-back">
         <div v-for="it in list" :key="it.title">
             <router-link :to="it.path">
                 <div class="banner-wrap">
@@ -55,8 +55,9 @@
     }
 
     /* 必要布局样式css */
-    .banner-wrap {
-        width: 100%;
+    .banner-wrap-back {
+        /*width: 100%;*/
+        /*width: ;*/
         height: auto;
         display: flex;
         flex-direction: row;
@@ -64,7 +65,11 @@
         margin-top: -40px;
     }
 
-    .banner-wrap div {
+    .banner-wrap {
+        height: auto;
+
+        justify-content: space-around;
+        margin-top: -40px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -79,7 +84,7 @@
         box-shadow: 0 7px 21px 0 rgba(0, 0, 0, 0.04);
     }
 
-    .banner-wrap h4 {
+    .banner-wrap > h4 {
         font-size: 18px;
         line-height: 36px;
         color: #333;
@@ -87,7 +92,7 @@
         font-weight: normal;
     }
 
-    .banner-wrap p {
+    .banner-wrap > p {
         padding: 0;
         font-size: 14px;
         line-height: 26px;
